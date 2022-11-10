@@ -1,6 +1,6 @@
 ## Get CESAB data (from local Zotero) ----
 
-# get_data(path = "~/Documents/Zotero", collection = "CESAB")
+# zoteror::get_data(path = "~/Documents/Zotero", collection = "CESAB")
 
 
 ## Import CESAB papers metadata ----

@@ -1,6 +1,6 @@
 ## Get CESAB data (from local Zotero) ----
 
-# zoteror::get_data(path = "~/Documents/Zotero", collection = "CESAB")
+# get_data(path = "~/Documents/Zotero", collection = "CESAB")
 
 
 ## Import CESAB papers metadata ----
@@ -21,4 +21,5 @@ cesab <- cesab[cesab$"category" == "journalArticle", ]
 
 ## Get journals names ----
 
-cesab_journals <- sort(unique(cesab$"journal"))
+cesab_journals_n <- sort(table(cesab$"journal"))
+cesab_journals   <- sort(names(cesab_journals_n))

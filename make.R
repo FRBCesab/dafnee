@@ -12,12 +12,16 @@
 
 ## Install Dependencies (listed in DESCRIPTION) ----
 
-devtools::install_deps(upgrade = "never")
+if (!("remotes" %in% installed.packages())) {
+  install.packages("remotes")
+}
+
+remotes::install_deps(upgrade = "never")
 
 
 ## Load Project Addins (R Functions and Packages) ----
 
-devtools::load_all(here::here())
+pkgload::load_all(here::here())
 
 
 ## Global Variables ----

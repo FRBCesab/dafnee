@@ -24,12 +24,6 @@ remotes::install_deps(upgrade = "never")
 pkgload::load_all(here::here())
 
 
-## Global Variables ----
-
-# You can list global variables here (or in a separate R script)
-
-
 ## Run Project ----
 
-# List all R scripts in a sequential order and using the following form:
-# source(here::here("analyses", "script_X.R"))
+source(here::here("analyses", "import-data.R"))

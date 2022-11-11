@@ -1,25 +1,28 @@
-## Get CESAB data (from local Zotero) ----
+## Import CESAB data (from local Zotero) ----
 
-# get_data(path = "~/Documents/Zotero", collection = "CESAB")
-
-
-## Import CESAB papers metadata ----
-
-cesab <- read.table(here::here("data", "raw-data", "cesab-publications.txt"), 
-                    header = TRUE)
+cesab <- get_cesab_data()
 
 
-## Check for duplicates ----
-
-any(duplicated(cesab$"title"))
-
-
-## Select articles ----
-
-cesab <- cesab[cesab$"category" == "journalArticle", ]
+## Alternative (import cleaned data frame) ----
+# 
+# cesab <- read.table(here::here("data", "derived-data",
+#                                "cesab-publications.txt"),
+#                     header = TRUE)
 
 
-## Get journals names ----
+## Import NCEAS data (from raw file) ----
 
-cesab_journals_n <- sort(table(cesab$"journal"))
-cesab_journals   <- sort(names(cesab_journals_n))
+nceas <- get_nceas_data()
+
+
+## Alternative (import cleaned data frame) ----
+# 
+# nceas <- read.table(here::here("data", "derived-data",
+#                                "nceas-publications.txt"),
+#                     header = TRUE)
+
+
+## Merge data ----
+
+refs <- rows_bind(nceas, cesab)
+

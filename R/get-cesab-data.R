@@ -1,9 +1,9 @@
-#' Import data from Zotero local database
+#' Import CESAB data from Zotero local database
 #' 
 #' @noRd
 
-get_data <- function(path = "~/Documents/Zotero", collection = "CESAB", 
-                     filename = "") {
+get_cesab_data <- function(path = "~/Documents/Zotero", collection = "CESAB", 
+                           filename = "") {
   
   ## Check args ----
   
@@ -38,9 +38,19 @@ get_data <- function(path = "~/Documents/Zotero", collection = "CESAB",
   rownames(refs) <- NULL
   
   
+  ## Remove duplicates ----
+  
+  refs <- refs[!duplicated(refs$"title"), ]
+  
+  
+  ## Select articles ----
+  
+  refs <- refs[refs$"category" == "journalArticle", ]
+  
+  
   ## Export data ----
   
-  if (filename == "") filename <- file.path("data", "raw-data", 
+  if (filename == "") filename <- file.path("data", "derived-data", 
                                             paste0(tolower(collection), 
                                                    "-publications.txt"))
   

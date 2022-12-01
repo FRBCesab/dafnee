@@ -1,11 +1,11 @@
 #' dafnee: A Research Compendium
-#' 
-#' @description 
-#' A paragraph providing a full description of the project and describing each 
+#'
+#' @description
+#' A paragraph providing a full description of the project and describing each
 #' step of the workflow.
-#' 
+#'
 #' @author Nicolas Casajus \email{nicolas.casajus@fondationbiodiversite.fr}
-#' 
+#'
 #' @date 2022/11/29
 
 

@@ -15,11 +15,12 @@ BugReports: https://github.com/frbcesab/dafnee/issues
 License: GPL (>= 2)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.2
+RoxygenNote: 7.2.3
 Imports: 
+    dplyr,
     here,
     pkgload,
     remotes,
     zoteror
-Remotes:
+Remotes: 
     frbcesab/zoteror

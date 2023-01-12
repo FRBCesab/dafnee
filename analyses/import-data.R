@@ -41,4 +41,10 @@ refs <- rows_bind(nceas, cesab, sdiv)
 
 ## Get journals ----
 
-journals <- sort(unique(refs$"journal"))
+journals <- data.frame("journal" = sort(unique(refs$"journal")))
+
+
+## Export list of journals ----
+
+write.table(journals, here::here("outputs", "list_of_journals.txt"), 
+            row.names = FALSE, sep = "\t")

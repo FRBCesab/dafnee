@@ -28,8 +28,8 @@ grid()
 
 for (i in 1:length(centers)) {
   
-  rect(i - .45, 0, i + .45, no_daf_perc[i], border = "white", col = "#A8BD91")
-  rect(i - .45, no_daf_perc[i], i + .45, 100, border = "white", col = "#f0a067")
+  rect(i - .45, 0, i + .45, no_daf_perc[i], border = "white", col = "#f0a067")
+  rect(i - .45, no_daf_perc[i], i + .45, 100, border = "white", col = "#A8BD91")
   text(i, -5, names(no_daf_perc)[i], font = 2, xpd = TRUE, col = "#666666")
 }
 par(mgp = c(3, 0.20, 0))

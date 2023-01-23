@@ -11,12 +11,15 @@ is_daf <- tapply(papers$"isdafnee", papers$"collection",
 no_daf_perc <- round(100 * no_daf / (no_daf + is_daf), 1)
 is_daf_perc <- round(100 * is_daf / (no_daf + is_daf), 1)
 
-centers <- c("NCEAS", "SDIV", "CESAB")
+centers <- c("NCEAS", "SDIV", "CESAB","ALL")
 
 is_daf_perc <- is_daf_perc[c(2, 3, 1)]
 no_daf_perc <- no_daf_perc[c(2, 3, 1)]
 
-pdf(here::here("figures", "fig-bars.pdf"), width = 4, height = 8)
+is_daf_perc["ALL"]=mean(is_daf_perc)
+no_daf_perc["ALL"]=mean(no_daf_perc)
+
+pdf(here::here("figures", "fig-bars.pdf"), width = 8, height = 6)
 
 
 par(xaxs = "i", yaxs = "i", mar = c(2.5, 2.5, 1, 1))

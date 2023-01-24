@@ -204,14 +204,14 @@ b <-  ggplot(impacts, aes(x = isdafnee, y = SNIP,colors=isdafnee))+
 
 library(ggplot2)
 
-c <- ggplot(impacts, aes(x = isdafnee, y = scopus_citation,colors=isdafnee))+
+c <- ggplot(impacts, aes(x = isdafnee, y = citationyear,colors=isdafnee))+
   geom_boxplot(
     fill=c("#a8bd91","#f0a067"),
     width = .5, 
     outlier.shape = NA
-  ) +  ylab("Citations") +
+  ) +  ylab("Citations/years") +
   xlab("Is Dafnee")+
-  theme_bw() + ylim(0,1000)+
+  theme_bw() + ylim(1,1000)+
   ggdist::stat_halfeye(
     adjust = .5,
     width = .6,
@@ -226,12 +226,13 @@ c <- ggplot(impacts, aes(x = isdafnee, y = scopus_citation,colors=isdafnee))+
     col="gray",
     position = position_jitter(
       seed = 1, width = .1
-    ))+ ggtitle(paste0("Citations, wilcox.test p=",round(cit_test$p.value,9)," n=",nrow(impacts)))
+    ))+ ggtitle(paste0("wilcox.test p=",round(cit_test$p.value,9)," n=",nrow(impacts)))+
+  coord_trans(y="log2")
 
 d <- ggplot(impacts, aes(x =SNIP ,  y = citationyear, colour = isdafnee))+geom_point()+
       scale_colour_manual(values = c("#a8bd91","#f0a067"))+
       stat_smooth(method = "lm", formula = y ~ x, se = TRUE)+
-      coord_trans(y="log10")+
+      coord_trans(y="log2")+
       theme_bw() +
       theme(panel.grid.minor = element_blank())+
       ylab('Citations/years')+

@@ -45,6 +45,108 @@ dev.off()
 
 #----
 
+#FIG MAIN JOURNALS----
+
+profit <- table(papers$journal[papers$isdafnee=="no"])
+profit <- as.data.frame(profit[order(profit,decreasing = T)])
+profit <- profit[1:10,]
+profit$col="#c2925e"
+non_profit <- table(papers$journal[papers$isdafnee=="ok"])
+non_profit <- as.data.frame(non_profit[order(non_profit,decreasing = T)])
+non_profit <- non_profit[1:10,]
+non_profit$col="#5ec27a"
+library(ggplot2)
+
+#A
+tm <-treemap::treemap(
+  dtf = profit,
+  index = c("Var1"),
+  vSize = "Freq",
+  vColor = "col",
+  type = 'color' # {treemap}'s equivalent of scale_fill_identity()
+)
+
+library(dplyr)
+
+tm_plot_data <- tm$tm %>% 
+  # calculate end coordinates with height and width
+  mutate(x1 = x0 + w,
+         y1 = y0 + h) %>% 
+  # get center coordinates for labels
+  mutate(x = (x0+x1)/2,
+         y = (y0+y1)/2) %>% 
+  # mark primary groupings and set boundary thickness
+  mutate(primary_group = ifelse(is.na(Var1), 1.2, .5)) %>% 
+  # remove colors from primary groupings (since secondary is already colored)
+  mutate(color = ifelse(is.na(Var1), NA, color))
+
+a <- ggplot(tm_plot_data, aes(xmin = x0, ymin = y0, xmax = x1, ymax = y1)) + 
+  # add fill and borders for groups and subgroups
+  geom_rect(aes(fill = color, size = primary_group),
+            show.legend = FALSE, color = "black") +
+  scale_fill_identity() +
+  # set thicker lines for group borders
+  scale_size(range = range(tm_plot_data$primary_group)) +
+  # add labels
+  ggfittext::geom_fit_text(aes(label = paste(Var1,stdErr)), min.size = 1) +
+  # options
+  scale_x_continuous(expand = c(0, 0)) +
+  scale_y_continuous(expand = c(0, 0)) +
+  theme_void()+
+  theme(plot.margin = margin(t = 10,  
+                             r = 10,  
+                             b = 10, 
+                             l = 10))
+
+#B
+tm <-treemap::treemap(
+  dtf = non_profit,
+  index = c("Var1"),
+  vSize = "Freq",
+  vColor = "col",
+  type = 'color' # {treemap}'s equivalent of scale_fill_identity()
+)
+
+library(dplyr)
+
+tm_plot_data <- tm$tm %>% 
+  # calculate end coordinates with height and width
+  mutate(x1 = x0 + w,
+         y1 = y0 + h) %>% 
+  # get center coordinates for labels
+  mutate(x = (x0+x1)/2,
+         y = (y0+y1)/2) %>% 
+  # mark primary groupings and set boundary thickness
+  mutate(primary_group = ifelse(is.na(Var1), 1.2, .5)) %>% 
+  # remove colors from primary groupings (since secondary is already colored)
+  mutate(color = ifelse(is.na(Var1), NA, color))
+
+b <- ggplot(tm_plot_data, aes(xmin = x0, ymin = y0, xmax = x1, ymax = y1)) + 
+  # add fill and borders for groups and subgroups
+  geom_rect(aes(fill = color, size = primary_group),
+            show.legend = FALSE, color = "black") +
+  scale_fill_identity() +
+  # set thicker lines for group borders
+  scale_size(range = range(tm_plot_data$primary_group)) +
+  # add labels
+  ggfittext::geom_fit_text(aes(label = paste(Var1,stdErr)), min.size = 1) +
+  # options
+  scale_x_continuous(expand = c(0, 0)) +
+  scale_y_continuous(expand = c(0, 0)) +
+  theme_void()+
+  theme(plot.margin = margin(t = 10,  
+                             r = 10,  
+                             b = 10, 
+                             l = 10))
+
+pdf(here::here("figures","tree_map.pdf"), width = 12, height = 12)
+gridExtra::grid.arrange(a,b,ncol=1)
+dev.off()
+
+
+
+#----
+
 #FIG TRENDS-----
 
 papers$"year" <- as.numeric(papers$"year")

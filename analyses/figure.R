@@ -238,12 +238,12 @@ papers <- papers[!is.na(papers$"isdafnee"), ]
 papers <- papers[!is.na(papers$"SCOPUS_source"), ]
 impacts <- papers[!is.na(papers$"SNIP"), ]
 impacts <- papers[!is.na(papers$"scopus_citation"), ]
-impacts$isdafnee[impacts$isdafnee%in%"ok"] <- "YES"
-impacts$isdafnee[impacts$isdafnee%in%"no"] <- "NO"
+impacts$isdafnee[impacts$isdafnee%in%"ok"] <- "NON PROFIT"
+impacts$isdafnee[impacts$isdafnee%in%"no"] <- "PROFIT"
 impacts$isdafnee <- as.factor(impacts$isdafnee)
-impacts$isdafnee <- factor(impacts$isdafnee , levels=c("YES","NO"))
-impacts$isdafnee[impacts$isdafnee%in%"ok"] <- "YES"
-impacts$isdafnee[impacts$isdafnee%in%"no"] <- "NO"
+impacts$isdafnee <- factor(impacts$isdafnee , levels=c("NON PROFIT","PROFIT"))
+impacts$isdafnee[impacts$isdafnee%in%"ok"] <- "NON PROFIT"
+impacts$isdafnee[impacts$isdafnee%in%"no"] <- "PROFIT"
 impacts$citationyear <- (impacts$scopus_citation/(2023-as.numeric(as.character(impacts$year)))+1)
 
 ipp_test <- wilcox.test(IPP ~ isdafnee, data = impacts)
@@ -262,7 +262,7 @@ a <- ggplot(impacts, aes(x = isdafnee, y = IPP,colors=isdafnee))+
     width = .5, 
     outlier.shape = NA
   ) +  ylab("Impact factors") +
-  xlab("Is Dafnee")+
+  xlab("Dafnee")+
   theme_bw() + ylim(0,60)+
   ggdist::stat_halfeye(
     adjust = .5,
@@ -286,7 +286,7 @@ b <-  ggplot(impacts, aes(x = isdafnee, y = SNIP,colors=isdafnee))+
     width = .5, 
     outlier.shape = NA
   ) +  ylab("Impact factors") +
-  xlab("Is Dafnee")+
+  xlab("Dafnee")+
   theme_bw() + ylim(0,12)+
   ggdist::stat_halfeye(
     adjust = .5,
@@ -312,7 +312,7 @@ c <- ggplot(impacts, aes(x = isdafnee, y = citationyear,colors=isdafnee))+
     width = .5, 
     outlier.shape = NA
   ) +  ylab("Citations/years") +
-  xlab("Is Dafnee")+
+  xlab("Dafnee")+
   theme_bw() + ylim(1,1000)+
   ggdist::stat_halfeye(
     adjust = .5,

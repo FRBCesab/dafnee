@@ -40,6 +40,7 @@ for (i in 1:length(centers)) {
 par(mgp = c(3, 0.20, 0))
 axis(2, at = seq(0, 100, by= 10), labels = paste0(seq(0, 100, by= 10), "%"), 
      las = 2, col.axis = "#666666", lwd = 0)
+abline(h=51, col="#fb6868",lwd=3, lty=2)
 
 dev.off()
 
@@ -213,6 +214,8 @@ for (i in 1:3) {
 dat[ , c(i, 4)]
 
 lines(dat$"year", dat$all, lwd = 2, col = "black",size=2)
+
+abline(h=51, col="#fb6868",lwd=3, lty=2)
 
 
 par(mgp = c(3, 0.25, 0))

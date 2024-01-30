@@ -6,7 +6,7 @@ journals <- read.delim(here::here("outputs", "list_of_journals.txt"),
 ## Read Dafnee data ----
 
 daf <- read.csv(here::here("data", "raw-data", 
-                           "DAFNEE-surveyed-journals-2023-01-10.csv"))
+                           "DAFNEE-surveyed-journals-2023-09-18.csv"))
 
 colnames(daf) <- tolower(colnames(daf))
 daf <- daf[ , -1]
